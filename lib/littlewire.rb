@@ -10,6 +10,7 @@ require_relative 'littlewire/i2c'
 require_relative 'littlewire/one-wire'
 require_relative 'littlewire/ws2811'
 require_relative 'littlewire/version'
+require_relative 'littlewire/rf433'
 
 # A little library for a little wire, by Bluebie
 # Provides an arduino or wiring style interface to the LittleWire device's IO features
@@ -25,6 +26,7 @@ class LittleWire
   include HardwarePWM
   include SoftwarePWM
   include Servo
+  include RF433
   
   # pin name to numeric internal code maps
   DigitalPinMap = { # maps common names to bit positions in PORTB
@@ -68,7 +70,7 @@ class LittleWire
     softpwm_c: [:software_pwm, :softpwm_c],
   }
   
-  SupportedVersions = ['1.3','1.2', '1.1', '1.0'] # in order of newness.
+  SupportedVersions = ['1.5','1.3','1.2', '1.1', '1.0'] # in order of newness.
   
   
   # An array of all unclaimed littlewires connected to computer via USB
@@ -291,6 +293,8 @@ class LittleWire
     :pic_24f_programming, # 52 - experimental
     :pic_24f_sendsix,     # 53 - experimental
     :ws2812,              # 54 - experimental
+    :change_serial,       # 55 
+    :rf433send,           # 56 - experimental
     # special cases
     # pic 24f send bytes - request = 0xD*
     # i2c send multiple messages - request = 0xE*     ### experimental ###
